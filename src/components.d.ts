@@ -5,64 +5,63 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Item } from "./components/keyed-list/keyed-list";
+export { Item } from "./components/keyed-list/keyed-list";
 export namespace Components {
-    interface MyComponent {
+    /**
+     * Renders a keyed list where each item is either a <p> or a <div>,
+     * keyed by `item.id` only. The same id can therefore be a <p> in one
+     * render and a <div> in the next.
+     */
+    interface KeyedList {
         /**
-          * The first name
+          * @default []
          */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "items": Item[];
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    /**
+     * Renders a keyed list where each item is either a <p> or a <div>,
+     * keyed by `item.id` only. The same id can therefore be a <p> in one
+     * render and a <div> in the next.
+     */
+    interface HTMLKeyedListElement extends Components.KeyedList, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLKeyedListElement: {
+        prototype: HTMLKeyedListElement;
+        new (): HTMLKeyedListElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "keyed-list": HTMLKeyedListElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    /**
+     * Renders a keyed list where each item is either a <p> or a <div>,
+     * keyed by `item.id` only. The same id can therefore be a <p> in one
+     * render and a <div> in the next.
+     */
+    interface KeyedList {
         /**
-          * The first name
+          * @default []
          */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+        "items"?: Item[];
     }
-
-    interface MyComponentAttributes {
-        "first": string;
-        "middle": string;
-        "last": string;
-    }
-
     interface IntrinsicElements {
-        "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "keyed-list": KeyedList;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            /**
+             * Renders a keyed list where each item is either a <p> or a <div>,
+             * keyed by `item.id` only. The same id can therefore be a <p> in one
+             * render and a <div> in the next.
+             */
+            "keyed-list": LocalJSX.IntrinsicElements["keyed-list"] & JSXBase.HTMLAttributes<HTMLKeyedListElement>;
         }
     }
 }

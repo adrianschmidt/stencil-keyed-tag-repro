@@ -2,13 +2,28 @@
 <html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stencil keyed-list tag change repro</title>
     <script type="module" src="/build/stencil-keyed-tag-repro.esm.js"></script>
     <script nomodule src="/build/stencil-keyed-tag-repro.js"></script>
   </head>
   <body>
-    <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
+    <p>
+      Click the buttons and watch the list. Expected after "Second": text 1, text 3, box 4, text 5.
+      Actual: "text 5" twice and no "box 4". Clicking again throws in the console and the list stops updating.
+    </p>
+    <button id="first">First</button>
+    <button id="second">Second</button>
+    <keyed-list></keyed-list>
+    <script>
+      const text = (id) => ({ id, kind: 'text', label: `text ${id}` });
+      const box = (id) => ({ id, kind: 'box', label: `box ${id}` });
+      const first = [text(1), text(2), text(3), text(4), text(5)];
+      const second = [text(1), text(3), box(4), text(5)];
+      const list = document.querySelector('keyed-list');
+      list.items = first;
+      document.getElementById('first').onclick = () => (list.items = first);
+      document.getElementById('second').onclick = () => (list.items = second);
+    </script>
   </body>
 </html>
