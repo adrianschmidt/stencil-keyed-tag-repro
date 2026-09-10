@@ -21,9 +21,11 @@ p#item-5  text 5   <- created in place of box 4
 p#item-5  text 5
 ```
 
-`box 4` never gets an element. The next render of the list throws
-`Cannot read properties of null (reading 'parentNode')` and the DOM stops
-updating.
+`box 4` never gets an element. Every render of the list after that throws
+`Cannot read properties of null (reading 'parentNode')` partway through the
+diff, so the DOM is left half-patched and stale rows accumulate. Alternating
+between `first` and `second` gives 5, 6, 7, ... rows, with `text 5` repeated
+and `box 4` still missing.
 
 ## Run
 

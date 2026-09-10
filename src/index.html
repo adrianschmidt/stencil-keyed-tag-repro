@@ -10,7 +10,8 @@
   <body>
     <p>
       Click the buttons and watch the list. Expected after "Second": text 1, text 3, box 4, text 5.
-      Actual: "text 5" twice and no "box 4". Clicking again throws in the console and the list stops updating.
+      Actual: "text 5" twice and no "box 4". Every click after that throws in the console and leaves stale rows
+      behind, so the list keeps growing.
     </p>
     <button id="first">First</button>
     <button id="second">Second</button>
